@@ -1,5 +1,7 @@
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
+const key =
+	'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTNhNjBmYWY2ZTNkZDAwMTQ5NWU0NGEiLCJpYXQiOjE2OTgzMjQ3MzAsImV4cCI6MTY5OTUzNDMzMH0.Wlw5f_Urd-k5h2lUH8SIchHaEY2HVol_3nh8P6Yz8bA';
 
 const AddComment = ({ bookId }) => {
 	const [commentAdd, setCommentAdd] = useState({
@@ -17,8 +19,7 @@ const AddComment = ({ bookId }) => {
 				method: 'POST',
 				body: JSON.stringify(commentAdd),
 				headers: {
-					Authorization:
-						'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTNhNjBmYWY2ZTNkZDAwMTQ5NWU0NGEiLCJpYXQiOjE2OTgzMjQ3MzAsImV4cCI6MTY5OTUzNDMzMH0.Wlw5f_Urd-k5h2lUH8SIchHaEY2HVol_3nh8P6Yz8bA',
+					Authorization: key,
 					'Content-Type': 'application/json',
 				},
 			});
@@ -34,14 +35,16 @@ const AddComment = ({ bookId }) => {
 	};
 
 	return (
-		<Form onSubmit={formSubmit}>
+		<Form onSubmit={formSubmit} className='mt-3'>
+			<p>New Comment</p>
 			<Form.Group>
 				<Form.Control
 					type='text'
-					placeholder='Aggiungi un commento'
+					placeholder='Write there a new comment'
 					value={commentAdd.comment}
 					onChange={(e) => setCommentAdd({ ...commentAdd, comment: e.target.value })}
 				/>
+				<p className='mt-2'>Rate</p>
 				<Form.Select
 					aria-label='Rate'
 					value={commentAdd.rate}
@@ -53,7 +56,7 @@ const AddComment = ({ bookId }) => {
 					<option>5</option>
 				</Form.Select>
 			</Form.Group>
-			<Button variant='primary' type='submit'>
+			<Button variant='primary' type='submit' className='mt-2'>
 				Send
 			</Button>
 		</Form>

@@ -4,17 +4,26 @@ import CommentArea from './CommentArea';
 import { useState } from 'react';
 // Genere dei libri
 import fantasy from '../data/fantasy.json';
+import history from '../data/history.json';
+import horror from '../data/horror.json';
+import romance from '../data/romance.json';
+import scifi from '../data/scifi.json';
+
 const BookList = () => {
 	const [bookList, setBookList] = useState({
 		bookTitle: '',
-		// selectGenre: fantasy,
+		selectGenre: fantasy,
+		bookGenres: [fantasy, horror, history, romance, scifi],
 		selectedAsin: null,
 	});
+
+	// const [bookGenresTwo, setBookGenresTwo] = useState([fantasy, horror, history, romance, scifi]);
 
 	const changeAsin = (newAsin) => {
 		setBookList({ ...bookList, selectedAsin: newAsin });
 	};
-
+	// console.log(bookList.bookGenres[0]);
+	// console.log(fantasy);
 	return (
 		<Col>
 			<Row className='justify-content-center'>
@@ -26,29 +35,30 @@ const BookList = () => {
 							value={bookList.bookTitle}
 							onChange={(e) => {
 								e.preventDefault();
-								setBookList({ bookTitle: e.target.value });
+								setBookList({ ...bookList, bookTitle: e.target.value });
 							}}
 						/>
 					</Form.Group>
 				</Col>
 				<Col md={4} className='align-items-center d-flex'>
 					<Form.Select
+						// value={bookList.selectGenre}
 						onChange={(e) => {
 							e.preventDefault();
 							setBookList({ ...bookList, selectGenre: e.target.value });
 						}}>
-						<option>fantasy</option>
-						<option>horror</option>
-						<option>History</option>
-						<option>Romance</option>
-						<option>Scifi</option>
+						{bookList.bookGenres.map((genre, i) => (
+							<option key={i} value={genre[i]}>
+								{genre[i].category}
+							</option>
+						))}
 					</Form.Select>
 				</Col>
 			</Row>
 			<Row>
 				<Col md={9}>
 					<Row>
-						{fantasy
+						{bookList.selectGenre
 							.filter((book) =>
 								book.title.toLowerCase().includes(bookList.bookTitle.toLowerCase())
 							)

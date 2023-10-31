@@ -1,13 +1,13 @@
 import { ListGroup, Button, Col, Row } from 'react-bootstrap';
 
-const CommentList = ({ comment }) => {
+const CommentList = ({ comment, getComents }) => {
 	return (
 		<ListGroup>
 			{comment.map((comment) => {
 				return (
 					<Row key={comment._id}>
-						<Col className='d-flex my-3'>
-							<ListGroup.Item>{comment.comment}</ListGroup.Item>
+						<Col className='d-flex my-2'>
+							<ListGroup.Item className='w-100'>{comment.comment}</ListGroup.Item>
 
 							<Button
 								variant='danger'
@@ -26,6 +26,8 @@ const CommentList = ({ comment }) => {
 										.then((res) => {
 											if (res.ok) {
 												console.log('eliminazione completata');
+												getComents();
+												// cosi si dovrebbe aggiornare la lista dei commenti
 											} else {
 												throw new Error("Qualcosa è andato storto nell'eliminazione");
 											}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import CommentList from './CommentList';
 import AddComment from './AddComment';
 const key =
@@ -41,7 +41,8 @@ const CommentArea = ({ bookId }) => {
 	return (
 		<Col md={3}>
 			<h2 className='text-center mb-5'>Comments</h2>
-			<CommentList comment={comment} />
+
+			<CommentList comment={comment} getComents={getComents} />
 
 			<AddComment bookId={bookId} />
 		</Col>

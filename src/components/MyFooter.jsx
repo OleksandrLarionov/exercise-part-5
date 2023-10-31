@@ -3,6 +3,7 @@ import ListGroupAlert from './ListGroup';
 import FormSubEmail from './FormSubEmail';
 
 const myFooter = () => {
+	const year = new Date().getFullYear();
 	return (
 		<Container fluid>
 			<hr />
@@ -24,7 +25,7 @@ const myFooter = () => {
 			<Row>
 				<Col md={12}>
 					<div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-						© 2023 Copyright:
+						© {year} Copyright:
 						<a className='text-white' href='#'>
 							MyPage
 						</a>
