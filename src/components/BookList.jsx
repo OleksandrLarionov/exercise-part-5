@@ -1,7 +1,7 @@
 import SingleBook from './SingleBook';
 import { Row, Form, Col } from 'react-bootstrap';
 import CommentArea from './CommentArea';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // Genere dei libri
 import fantasy from '../data/fantasy.json';
 import history from '../data/history.json';
@@ -10,6 +10,9 @@ import romance from '../data/romance.json';
 import scifi from '../data/scifi.json';
 
 const BookList = () => {
+	const reloadPage = () => {
+		// window.location.reload(false);
+	};
 	const [bookList, setBookList] = useState({
 		bookTitle: '',
 		selectGenre: fantasy,
@@ -22,8 +25,7 @@ const BookList = () => {
 	const changeAsin = (newAsin) => {
 		setBookList({ ...bookList, selectedAsin: newAsin });
 	};
-	// console.log(bookList.bookGenres[0]);
-	// console.log(fantasy);
+
 	return (
 		<Col>
 			<Row className='justify-content-center'>
@@ -42,13 +44,19 @@ const BookList = () => {
 				</Col>
 				<Col md={4} className='align-items-center d-flex'>
 					<Form.Select
-						// value={bookList.selectGenre}
+						value={bookList.selectGenre.category}
 						onChange={(e) => {
 							e.preventDefault();
-							setBookList({ ...bookList, selectGenre: e.target.value });
+
+							setBookList({
+								...bookList,
+								selectGenre: bookList.bookGenres.find(
+									(genre, i) => genre[i].category === e.target.value
+								),
+							});
 						}}>
 						{bookList.bookGenres.map((genre, i) => (
-							<option key={i} value={genre[i]}>
+							<option key={i} value={genre[i].category}>
 								{genre[i].category}
 							</option>
 						))}
